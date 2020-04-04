@@ -90,37 +90,29 @@ class Home extends CI_Controller {
 				if($result > 0)// if more results than 0, insertion was successful, so...
 				{
 					$success = "Registration Successful!  Please Login.";
-					$this->session->set_flashdata('error', $success);
+					$this->session->set_flashdata('success', $success);
 					redirect('home/login');
+/*
+**********************************************
+ 2 Types of sessions;
+	-One will keep the variable for duration of the application, session will stay on (we will use for email, etc).
 
-//**********************************************
-// 2 Types of sessions;
-					// One will keep the variable for duration of the application, 
-					// Session will stay on (we will use for email, etc).
-
-					// set_flashdata on the other hand will set the message, but as soon as it does this,
-					// the session is used, it will not unset it.  So we don't have to write something to
-					// set and unset messages as you might in procedural PHP.
-
-
-
-//**********************************************
-
-
-
+	-Set_flashdata on the other hand will set the message, but as soon as it does this, the session is used, it will not unset it.  So we don't have to write something to set and unset messages as you might in procedural PHP.
+**********************************************
+*/
 				} else {
-					$error = "User already exists!  Please Login.";
+					$error = "Registration Not Successful.  Please try again.";
 					$this->session->set_flashdata('error', $error);
 					redirect('home/register');
 					//$this->load->templatesOn('register');	
 				}
 
-				
+				// echo the message in view!
 
 
 
 			}
-			}
+		}
 
 
 
@@ -128,7 +120,7 @@ class Home extends CI_Controller {
 
 
 			//Redirect to Login
-		} //END else
+		// } //END else
 
 	} //*************END register*************************
 

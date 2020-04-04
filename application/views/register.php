@@ -35,7 +35,31 @@
 
             <label class="control-label col-sm-2" for="name"></label>
             <div class="col-sm-10">
-<!-- Bootstrap Alerts for Validation Errors!************************************ -->  
+<!-- Bootstrap Alerts for Validation Errors!************************************ --> 
+
+
+<?php if ($this->session->flashdata('error')){
+echo '<div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'. $this->session->flashdata('error'). '</div>';
+          //echo my error here
+}?>
+
+
+
+
+
+
+
+<?php if ($this->session->flashdata('success')){
+echo               '<div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$this->session->$this->session->flashdata('success'); '</div>';
+}?>
+
+
+
+
+
+
             <?php echo validation_errors('
               <div class="alert alert-danger fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>',
