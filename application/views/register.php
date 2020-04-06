@@ -6,12 +6,40 @@
       <!-- moving this down! -->
 
 
+
+
+
+              <?php if ($this->session->flashdata('error')){
+              echo '<div class="alert alert-danger alert-dismissable">
+                              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'. $this->session->flashdata('error'). '</div>';
+                        //echo my error here
+              }?>
+
+              <?php if ($this->session->flashdata('success')){
+              echo               '<div class="alert alert-success alert-dismissable">
+                              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$this->session->flashdata('success'); '</div>';
+              }?>
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
 
       <div class="col-md-4 col-md-offset-4">
        <p class=""><a class="pull-right" href="<?php echo base_url('home/login'); ?>">Login</a></p><br>
 
-
+        <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">
+                              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>',
+                              '</div>'); ?>
 
       <!-- <form class= 'form-horizontal', id='registration', role='form', action="<?php //echo base_url('home/register'); ?>" > -->
 
@@ -19,7 +47,7 @@
           <!-- CREATE AN ATTRIBUTES ARRAY (associative array)... -->
           <?php $attributes = array (
             'class' => 'form-horizontal',
-            'id' => 'registration',
+            // 'id' => 'registration',
             'role' => 'form'
           ) ?>
 
@@ -35,37 +63,10 @@
 
             <label class="control-label col-sm-2" for="name"></label>
             <div class="col-sm-10">
-<!-- Bootstrap Alerts for Validation Errors!************************************ --> 
+              <!-- Bootstrap Alerts for Validation Errors!************************************ --> 
 
 
-<?php if ($this->session->flashdata('error')){
-echo '<div class="alert alert-danger alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'. $this->session->flashdata('error'). '</div>';
-          //echo my error here
-}?>
-
-
-
-
-
-
-
-<?php if ($this->session->flashdata('success')){
-echo               '<div class="alert alert-success alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$this->session->$this->session->flashdata('success'); '</div>';
-}?>
-
-
-
-
-
-
-            <?php echo validation_errors('
-              <div class="alert alert-danger fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>',
-                '</div>
-               '); ?>
-<!-- *************************************************************************** -->
+              <!-- *************************************************************************** -->
 
               <input type="name" name="name" value="" class="form-control" id="name" placeholder="Enter Full Name" required>
             </div>

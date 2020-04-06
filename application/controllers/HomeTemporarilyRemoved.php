@@ -9,7 +9,30 @@ class Home extends CI_Controller {
 		echo "This is the HOME Controller!  But I don't think you will ever see it!";
 	}
 
+//*****************************************************************************************
+	public function tryloader()
+	{
+	/*  This function is using the My_loader controller in order to load
+	    header and footer templates automatically with one line of code.
+	    It replaces this:
+				$this->load->view('templates/header');
+				$this->load->view('login');
+				$this->load->view('templates/footer');
+		 ..with this:
+		 		$this->load->templatesOn('login');
+		I did this at the very beginning of the course and haven't had trouble
+		out of it so far, so I don't think it's the problem.  But I'll post the My_loader
+		code if anyone wants to see.
 
+
+	 Location: ./application/core/My_Loader.php 
+	 Loading login.php view as a test....*/ 
+	$this->load->templatesOn('login');
+	}
+
+
+
+//*****************************************************************************************
 	//Process the Login
 	public function login() 
 	{
@@ -21,10 +44,8 @@ class Home extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('templates/header');
-			$this->load->view('login');
-			$this->load->view('templates/footer');
-			
+			/*My function for loading login w/ the templates*/
+			$this->load->templatesOn('login');
 		} else {
 			$email = $this->input->post('email');
 			$rawpass = $this->input->post('password');
@@ -77,10 +98,7 @@ class Home extends CI_Controller {
 		// If form validation fails,show the view... check by pointing form_validation at 'run' method
 		if($this->form_validation->run() == FALSE)
 		{  //if validation false.....
-			$this->load->view('templates/header');
-			$this->load->view('register');
-			$this->load->view('templates/footer');
-					
+			$this->load->templatesOn('register');		
 		} else {
 			//Collect form data
 			$fullname = $this->input->post('name');
@@ -94,14 +112,24 @@ class Home extends CI_Controller {
 			$result = $this->User_model->userExist($email);
 			//Returns true or false.  Let's grab the result... in the variable $result ^^^
 
-	
+			/*
+			************************************************
+			Message: Undefined property: Home::$User_model
+			Solution:
+
+			NEED TO LOAD EACH MODEL THAT ACCESSES DB IN AUTOLOAD!!!
+			ex:
+			$autoload['model'] = array('User_model');
+			************************************************
+			*/
 
 			if($result == TRUE) //if user exists....
 			{
 				//Setting user data in a SESSION
 				$error = "User already exists!  Please Login.";
 				$this->session->set_flashdata('error', $error);
-
+				//  set_flashdata takes in name of session you want to use, then message
+				//Now if we echo, we will display the message!
 
 
 
@@ -121,12 +149,19 @@ class Home extends CI_Controller {
 					$success = "Registration Successful!  Please Login.";
 					$this->session->set_flashdata('success', $success);
 					redirect('home/login');
+				/*
+				**********************************************
+				 2 Types of sessions;
+					-One will keep the variable for duration of the application, session will stay on (we will use for email, etc).
 
+					-Set_flashdata on the other hand will set the message, but as soon as it does this, the session is used, it will not unset it.  So we don't have to write something to set and unset messages as you might in procedural PHP.
+				**********************************************
+				*/
 				} else {
 					$error = "Registration Not Successful.  Please try again.";
 					$this->session->set_flashdata('error', $error);
 					redirect('home/register');
-						
+					//$this->load->templatesOn('register');	
 				}
 
 				// echo the message in view!
@@ -151,31 +186,38 @@ class Home extends CI_Controller {
 
 	public function resetpassword()
 	{
-		$this->load->view('templates/header');
-		$this->load->view('resetpassword');
-		$this->load->view('templates/footer');
+		// $this->load->view('templates/header');
+		// $this->load->view('resetpassword');
+		// $this->load->view('templates/footer');
 
+
+
+				/*Replace with this:*/
+		$this->load->templatesOn('resetpassword');
 	}
 
 //*****************************************************************************************
 
 	public function verifypasswordcode()
 	{
-		$this->load->view('templates/header');
-		$this->load->view('verifypasswordresetcode');
-		$this->load->view('templates/footer');
+		// $this->load->view('templates/header');
+		// $this->load->view('verifypasswordresetcode');
+		// $this->load->view('templates/footer');
 
-
+				/*Replace with this:*/
+		$this->load->templatesOn('verifypasswordresetcode');
 	}
 
 //*****************************************************************************************
 
 	public function newpassword()
 	{
-		$this->load->view('templates/header');
-		$this->load->view('newpassword');
-		$this->load->view('templates/footer');
+		// $this->load->view('templates/header');
+		// $this->load->view('newpassword');
+		// $this->load->view('templates/footer');
 
+				/*Replace with this:*/
+		$this->load->templatesOn('newpassword');
 	}
 
 //*****************************************************************************************

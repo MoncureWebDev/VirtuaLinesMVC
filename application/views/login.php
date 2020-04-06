@@ -3,10 +3,29 @@
       </div>
       <div class="col-md-4 col-md-offset-4">  
       
-      Echo success and error messages here
-      
-       <p class=""><a class="pull-right" href="<?php echo base_url('home/register') ?>"> Register</a></p><br>
-        <form class="" role="form" method="post" action="controller/method">
+<!-- Bootstrap Alerts for Validation Errors!************************************ --> 
+
+<?php if ($this->session->flashdata('error')){
+  echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'. $this->session->flashdata('error'). '</div>';
+          //echo my error here
+}?>
+<?php if ($this->session->flashdata('success')){
+  echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'. $this->session->flashdata('success'); '</div>';
+}?>
+<!-- Bootstrap Alerts for Validation Errors!************************************ --> 
+
+   
+       <p class=""><a class="pull-right" href="<?php echo base_url('home/register'); ?>"> Register</a></p><br>
+<!-- ********************************************************* --> 
+              <?php echo validation_errors('
+                            <div class="alert alert-danger alert-dismissable">
+                              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>',
+                              '</div>'); ?>
+<!-- ********************************************************* --> 
+
+        <form class="" role="form" method="post" action="<?php echo base_url('home/login'); ?>">
           <div class="form-group">
             
             <div class="">
@@ -23,7 +42,7 @@
           <div class="form-group"> 
             <div class="">
               <button type="submit" class="btn btn-primary text-center" name="submit_login">Login</button><br><br>
-              <div class="text-center" ><a href=" controller/method ?>">Forgot Password ? </a></div>
+              <div class="text-center" ><a href="<?php echo base_url('home/resetpassword'); ?>">Forgot Password ? </a></div>
             </div>
           </div>
         </form>
